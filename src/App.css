@@ -1,38 +1,287 @@
-.App {
-  text-align: center;
+:root{
+  --bg:#071026;
+  --card:#0b1622;
+  --muted:#98a2b3;
+  --accent:#2fb6ff;
+  --accent-2:#7c3aed;
+  --success:#16a34a;
+  --danger:#ef4444;
+  --glass: rgba(255,255,255,0.03);
+  --radius:14px;
+  --container-max:1080px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* --- Reset / base --- */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  /* Use a fixed, single-layer gradient to reduce banding artifacts */
+  background: linear-gradient(180deg,#061127 0%, #030612 100%) fixed no-repeat;
+  background-size: cover;
+  color:#e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-font-feature-settings: "liga" 0;
+  /* promote to its own layer to reduce repainting artifacts */
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
+/* wrapper for horiz padding and centering */
+.ui-wrapper {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 28px;
+}
+
+/* small container (compat with your App layout) */
+.app-container{
+  max-width:var(--container-max);
+  margin:28px auto;
+  padding:0 18px;
+}
+
+/* header */
+.app-header{
+  text-align:center;
+  margin-bottom:18px;
+}
+.app-header h1{
+  margin:0;
+  font-size:clamp(1.45rem, 2.8vw, 2.1rem);
+  letter-spacing:0.01em;
+  font-weight:700;
+}
+.muted{ color:var(--muted); font-size:0.95rem; }
+
+/* ------- Form inputs & labels ------- */
+
+/* larger, clearer inputs */
+.large-input, input.form-control, select.form-control, textarea.form-control {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: #e8f0ff;
+  transition: box-shadow .18s ease, border-color .18s ease, transform .05s;
+}
+
+/* form label style */
+.form-label {
+  color: rgba(255,255,255,0.82);
+  font-weight: 600;
+  margin-bottom: 6px;
+  display:block;
+}
+
+/* helper text */
+.small-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* input placeholder color */
+.large-input::placeholder, input.form-control::placeholder {
+  color: rgba(255,255,255,0.32);
+}
+
+/* focus state */
+input:focus, select:focus, textarea:focus, .large-input:focus {
+  outline: none;
+  box-shadow: 0 8px 30px rgba(47,182,255,0.06);
+  border-color: rgba(47,182,255,0.35);
+  transform: translateY(-0.5px);
+}
+
+/* slight hover lift for inputs */
+.large-input:hover {
+  transform: translateY(-0.5px);
+}
+
+/* ------- Buttons / CTAs ------- */
+.btn-primary, .primary-cta {
+  background: linear-gradient(90deg,var(--accent), var(--accent-2));
+  border: none;
+  box-shadow: 0 10px 25px rgba(46,142,212,0.12);
+  border-radius:12px;
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+}
+
+.btn-primary:disabled, .primary-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover, .primary-cta:hover {
+  transform: translateY(-2px);
+}
+
+/* outline secondary buttons */
+.btn-outline-secondary {
+  border-radius:10px;
+  color:var(--muted);
+  border-color: rgba(255,255,255,0.06);
+  background: transparent;
+  padding: 8px 12px;
+}
+
+/* link-style buttons (demo link) */
+.btn-link {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* form layout helpers */
+.form-actions{
+  margin-top:16px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+/* advanced toggle wrapper */
+.advanced-toggle{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+/* ------- Advanced area (box) ------- */
+.advanced-section{
+  margin-top:12px;
+  padding:14px;
+  border-radius:12px;
+  /* subtler translucency so the body gradient remains even */
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  background-clip: padding-box;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+}
+
+/* ------- Results (card) ------- */
+.result-area{
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+
+/* polished result card */
+.result-card{
+  width:100%;
+  max-width:980px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  border-radius:var(--radius);
+  box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+  padding:18px;
+  background-clip: padding-box;
+}
+
+/* top row of result */
+.result-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+/* score pill (right side) */
+.score-pill{
+  background: rgba(255,255,255,0.03);
+  padding:12px 16px;
+  border-radius:12px;
+  text-align:center;
+  min-width:84px;
+}
+.score-number{
+  font-size:1.35rem;
+  font-weight:700;
+  color:var(--accent);
+}
+.score-sub{ font-size:0.8rem; color:var(--muted); }
+
+/* severity pill */
+.severity{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#fff;
+  font-weight:700;
+  display:inline-block;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.32);
+}
+
+/* explanation text */
+.explain{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+/* small consistent card elements */
+.card {
+  border-radius: 12px;
+}
+
+/* subtle text-muted variant */
+.muted-light {
+  color: rgba(255,255,255,0.62);
+}
+
+/* ------- Accessibility / small tweaks ------- */
+/* increase hit area on small controls */
+input[type="number"], input[type="text"], select {
+  -moz-appearance: textfield;
+}
+
+/* remove spinner on number inputs for better look on Chrome */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* avoid heavy full-width translucent blocks visually clashing with body gradient */
+.fullwidth-overlay, .site-overlay {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+/* reduce large box-shadow alpha to avoid banding on some GPUs */
+.result-card, .advanced-section {
+  box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+}
+
+/* responsive tweaks */
+@media (max-width:767px){
+  .form-actions{ flex-direction:column; align-items:stretch; }
+  .advanced-toggle{ justify-content:space-between; }
+  .score-pill{ min-width:64px; padding:8px 10px; }
+  .ui-wrapper { padding: 18px; }
+  .result-card { padding: 14px; }
+  .large-input { padding: 10px 12px; }
+}
+
+/* small utility classes */
+.text-right { text-align: right; }
+.small { font-size: 0.85rem; }
+
+/* optional: force smoother repaint on some drivers */
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  body {
+    backface-visibility: hidden;
   }
 }
